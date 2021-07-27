@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.versionedparcelable.CustomVersionedParcelable;
 
 import java.util.ArrayList;
 
@@ -16,10 +17,10 @@ public class SecondActivity extends AppCompatActivity {
 
 	ListView lv;
     ArrayList<Song> songList;
-	ArrayAdapter adapter;
 	String moduleCode;
 	int requestCode = 9;
     Button btn5Stars;
+    CustomAdapter adapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +36,7 @@ public class SecondActivity extends AppCompatActivity {
         songList = dbh.getAllSongs();
         dbh.close();
 
-		adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, songList);
+		adapter = new CustomAdapter(this, R.layout.row, songList);
 		lv.setAdapter(adapter);
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -69,6 +70,7 @@ public class SecondActivity extends AppCompatActivity {
             adapter.notifyDataSetChanged();
 		}
 		super.onActivityResult(requestCode, resultCode, data);
+
 	}
 
 
